@@ -35,6 +35,54 @@ export function FcirclePage() {
         link.href = 'https://fastly.jsdelivr.net/gh/willow-god/Friend-Circle-Lite/main/fclite.min.css';
         document.head.appendChild(link);
 
+        // 添加深色模式样式覆盖
+        const style = document.createElement('style');
+        style.textContent = `
+            @media (prefers-color-scheme: dark) {
+                #friend-circle-lite-root,
+                #friend-circle-lite-root * {
+                    color: white !important;
+                }
+                #friend-circle-lite-root .fcl-card {
+                    background-color: #1f2937 !important;
+                    border-color: #374151 !important;
+                }
+                #friend-circle-lite-root .fcl-card-header {
+                    border-bottom-color: #374151 !important;
+                }
+                #friend-circle-lite-root .fcl-card-footer {
+                    border-top-color: #374151 !important;
+                }
+                #friend-circle-lite-root .fcl-comment {
+                    background-color: #374151 !important;
+                    border-color: #4b5563 !important;
+                }
+                #friend-circle-lite-root .fcl-btn {
+                    background-color: #374151 !important;
+                    border-color: #4b5563 !important;
+                    color: white !important;
+                }
+                #friend-circle-lite-root .fcl-btn:hover {
+                    background-color: #4b5563 !important;
+                }
+                #friend-circle-lite-root .fcl-input {
+                    background-color: #374151 !important;
+                    border-color: #4b5563 !important;
+                    color: white !important;
+                }
+                #friend-circle-lite-root .fcl-input::placeholder {
+                    color: #9ca3af !important;
+                }
+                #friend-circle-lite-root .fcl-loading {
+                    background-color: rgba(31, 41, 55, 0.8) !important;
+                }
+                #friend-circle-lite-root .fcl-loading::after {
+                    border-color: white transparent white transparent !important;
+                }
+            }
+        `;
+        document.head.appendChild(style);
+
         // 动态加载 JavaScript
         const script = document.createElement('script');
         script.src = 'https://fastly.jsdelivr.net/gh/willow-god/Friend-Circle-Lite/main/fclite.min.js';
@@ -43,6 +91,7 @@ export function FcirclePage() {
         // 清理函数
         return () => {
             document.head.removeChild(link);
+            document.head.removeChild(style);
             document.body.removeChild(script);
         };
     }, []);
