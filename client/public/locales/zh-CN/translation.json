@@ -106,6 +106,7 @@
     "create": "创建圈子",
     "left": "暂时离开",
     "my_apply": "我的申请",
+    "empty": "暂无朋友圈数据",
     "review": {
       "accepted": "接受",
       "rejected": "拒绝",

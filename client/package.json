@@ -28,7 +28,7 @@
     "react-helmet": "^6.1.0",
     "react-i18next": "^14.1.2",
     "react-loading": "^2.0.3",
-    "react-modal": "^3.16.1",
+    "react-modal": "^3.16.3",
     "react-select": "^5.8.0",
     "reactjs-popup": "^2.0.6",
     "remark-github-blockquote-alert": "^1.2.1",
