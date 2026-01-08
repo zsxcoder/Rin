@@ -5,7 +5,6 @@ import { CommentService } from './services/comments';
 import { FaviconService } from "./services/favicon";
 import { FeedService } from './services/feed';
 import { FriendService } from './services/friends';
-import { FcircleService } from './services/fcircle';
 import { MomentsService } from './services/moments';
 import { RSSService } from './services/rss';
 import { SEOService } from './services/seo';
@@ -37,7 +36,6 @@ export const app = () => new Elysia({ aot: false })
     .use(TagService())
     .use(StorageService())
     .use(FriendService())
-    .use(FcircleService())
     .use(SEOService())
     .use(RSSService())
     .use(ConfigService())

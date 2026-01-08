@@ -6,7 +6,6 @@ import type { Env } from "./db/db";
 import * as schema from './db/schema';
 import { app } from "./server";
 import { friendCrontab } from "./services/friends";
-import { fcircleCrontab } from "./services/fcircle";
 import { rssCrontab } from "./services/rss";
 import { CacheImpl } from "./utils/cache";
 import { dbToken, envToken } from "./utils/di";
@@ -49,7 +48,6 @@ export default {
         }
 
         await friendCrontab(env, ctx)
-        await fcircleCrontab(env, ctx)
         await rssCrontab(env)
     },
 }
