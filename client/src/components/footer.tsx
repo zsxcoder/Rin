@@ -28,7 +28,7 @@ function Footer() {
             const now = new Date();
             // Convert to Beijing time (UTC+8)
             const beijingTime = new Date(now.getTime() + 8 * 60 * 60 * 1000);
-            const creationDate = new Date('2026-01-07T12:00:00Z');
+            const creationDate = new Date('2026-01-07T04:00:00Z');
             const creationDateBeijing = new Date(creationDate.getTime() + 8 * 60 * 60 * 1000);
             const ageInSeconds = Math.floor((beijingTime.getTime() - creationDateBeijing.getTime()) / 1000);
             const days = Math.floor(ageInSeconds / (24 * 60 * 60));
@@ -82,7 +82,7 @@ function Footer() {
             </Helmet>
             <div className="flex flex-col mb-8 space-y-2 justify-center items-center t-primary ani-show">
                 {footerHtml && <div dangerouslySetInnerHTML={{ __html: footerHtml }} />}
-                <p className='text-xs text-neutral-500 font-normal'>
+                <p className='text-xs text-neutral-500 font-normal text-center'>
                     建站时间: {siteAge} | 旅行者一号距地球: {voyagerDistance}
                 </p>
                 <p className='text-sm text-neutral-500 font-normal link-line'>
