@@ -50,4 +50,20 @@ export default {
         await friendCrontab(env, ctx)
         await rssCrontab(env)
     },
+}        ctx: ExecutionContext
+    ) {
+        const db = drizzle(env.DB, { schema: schema })
+        Container.set(envToken, env)
+        Container.set(dbToken, db)
+
+        const exist = Container.has("cache")
+        if (!exist) {
+            Container.set("cache", new CacheImpl());
+            Container.set("server.config", new CacheImpl("server.config"));
+            Container.set("client.config", new CacheImpl("client.config"));
+        }
+
+        await friendCrontab(env, ctx)
+        await rssCrontab(env)
+    },
 }
