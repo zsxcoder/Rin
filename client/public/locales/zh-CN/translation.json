@@ -101,6 +101,18 @@
     },
     "title": "朋友们"
   },
+  "fcircle": {
+    "apply": "申请加入圈子",
+    "create": "创建圈子",
+    "left": "暂时离开",
+    "my_apply": "我的申请",
+    "review": {
+      "accepted": "接受",
+      "rejected": "拒绝",
+      "waiting": "待审核"
+    },
+    "title": "朋友圈"
+  },
   "github_login": "Github 登录",
   "hashtags": "标签",
   "home": "首页",
@@ -195,6 +207,21 @@
         }
       },
       "title": "友链设置"
+    },
+    "fcircle": {
+      "apply": {
+        "desc": "允许其他用户申请加入朋友圈（需审核）",
+        "title": "朋友圈申请"
+      },
+      "health": {
+        "desc": "启用朋友圈链接可访问性检查",
+        "title": "朋友圈健康监测",
+        "ua": {
+          "desc": "设置朋友圈可访问性检查时使用的 User-Agent, 默认 'Rin-Check/1.0'",
+          "title": "朋友圈健康监测 User-Agent"
+        }
+      },
+      "title": "朋友圈设置"
     },
     "get_config_failed$message": "获取配置失败，{{message}}",
     "import_failed$message": "导入失败，{{message}}",

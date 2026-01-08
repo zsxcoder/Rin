@@ -3,14 +3,21 @@ import { createContext } from "react";
 export const defaultClientConfig = new Map(Object.entries({
     "counter.enabled": true,
     "friend_apply_enable": true,
+    "fcircle_apply_enable": true,
     "comment.enabled": true,
     "login.enabled": true,
+    "private_api_url": "https://fc.mcyzsx.top/",
+    "page_turning_number": 20,
+    "error_img": "https://fastly.jsdelivr.net/gh/willow-god/Friend-Circle-Lite@latest/static/favicon.ico"
 }))
 
 export const defaultServerConfig = new Map(Object.entries({
     "friend_apply_auto_accept": false,
     "friend_crontab": true,
-    "friend_ua": "Rin-Check/0.1.0"
+    "friend_ua": "Rin-Check/0.1.0",
+    "fcircle_apply_auto_accept": false,
+    "fcircle_crontab": true,
+    "fcircle_ua": "Rin-Check/0.1.0"
 }))
 
 export class ConfigWrapper {

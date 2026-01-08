@@ -52,6 +52,20 @@ export const friends = sqliteTable("friends", {
     updatedAt: updated_at,
 });
 
+export const fcircles = sqliteTable("fcircles", {
+    id: integer("id").primaryKey(),
+    name: text("name").notNull(),
+    desc: text("desc"),
+    avatar: text("avatar").notNull(),
+    url: text("url").notNull(),
+    uid: integer("uid").references(() => users.id, { onDelete: 'cascade' }).notNull(),
+    accepted: integer("accepted").default(0).notNull(),
+    health: text("health").default("").notNull(),
+    sort_order: integer("sort_order").default(0).notNull(),
+    createdAt: created_at,
+    updatedAt: updated_at,
+});
+
 export const users = sqliteTable("users", {
     id: integer("id").primaryKey(),
     username: text("username").notNull(),

@@ -132,20 +132,15 @@ export function Markdown({ content }: { content: string }) {
           if (isCodeBlock) {
             return (
               <div className="relative group">
-                <SyntaxHighlighter
-                  PreTag="div"
-                  className="rounded"
-                  language={language}
-                  style={
-                    colorMode === "dark"
-                      ? vscDarkPlus
-                      : base16AteliersulphurpoolLight
-                  }
-                  wrapLongLines={true}
-                  codeTagProps={{ style: codeBlockStyle }}
-                >
-                  {String(children).replace(/\n$/, "")}
-                </SyntaxHighlighter>
+                {(SyntaxHighlighter as any)({
+                  PreTag: "div",
+                  className: "rounded",
+                  language: language,
+                  style: colorMode === "dark" ? vscDarkPlus : base16AteliersulphurpoolLight,
+                  wrapLongLines: true,
+                  codeTagProps: { style: codeBlockStyle },
+                  children: String(children).replace(/\n$/, "")
+                })}
                 <button className="absolute top-1 right-1 px-2 py-1 bg-w rounded-md text-sm bg-hover select-none invisible group-hover:visible"
                   onClick={() => {
                     navigator.clipboard.writeText(String(children));
