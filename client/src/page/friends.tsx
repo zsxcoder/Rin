@@ -105,7 +105,7 @@ export function FriendsPage() {
                 <FriendList title={t('friends.review.rejected')} show={refusedList.length > 0} friends={refusedList} />
                 <FriendList title={t('friends.my_apply')} show={profile?.permission !== true && apply !== undefined} friends={apply ? [apply] : []} />
                 
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12 w-full max-w-4xl">
+                <div className="mt-16 grid grid-cols-1 md:grid-cols-2 gap-6 mb-12 w-full max-w-4xl">
                     <div className="rounded-2xl bg-slate-50 dark:bg-white/5 border border-slate-100 dark:border-white/5 p-6">
                         <div className="flex items-center gap-2 mb-4">
                             <svg className="w-5 h-5 text-docs-accent dark:text-dark-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
