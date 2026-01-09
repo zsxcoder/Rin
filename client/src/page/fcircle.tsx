@@ -94,53 +94,6 @@ export function FcirclePage() {
             [data-theme=dark] #friend-circle-lite-root a {
                 color: #ffffff !important;
             }
-            
-            /* 深色模式背景和边框样式 */
-            [data-theme=dark] #friend-circle-lite-root .fcl-card {
-                background-color: #1f2937 !important;
-                border-color: #374151 !important;
-            }
-            
-            [data-theme=dark] #friend-circle-lite-root .fcl-card-header {
-                border-bottom-color: #374151 !important;
-            }
-            
-            [data-theme=dark] #friend-circle-lite-root .fcl-card-footer {
-                border-top-color: #374151 !important;
-            }
-            
-            [data-theme=dark] #friend-circle-lite-root .fcl-comment {
-                background-color: #374151 !important;
-                border-color: #4b5563 !important;
-            }
-            
-            [data-theme=dark] #friend-circle-lite-root .fcl-btn {
-                background-color: #374151 !important;
-                border-color: #4b5563 !important;
-                color: white !important;
-            }
-            
-            [data-theme=dark] #friend-circle-lite-root .fcl-btn:hover {
-                background-color: #4b5563 !important;
-            }
-            
-            [data-theme=dark] #friend-circle-lite-root .fcl-input {
-                background-color: #374151 !important;
-                border-color: #4b5563 !important;
-                color: white !important;
-            }
-            
-            [data-theme=dark] #friend-circle-lite-root .fcl-input::placeholder {
-                color: #9ca3af !important;
-            }
-            
-            [data-theme=dark] #friend-circle-lite-root .fcl-loading {
-                background-color: rgba(31, 41, 55, 0.8) !important;
-            }
-            
-            [data-theme=dark] #friend-circle-lite-root .fcl-loading::after {
-                border-color: white transparent white transparent !important;
-            }
         `;
         document.head.appendChild(style);
 
