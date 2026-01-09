@@ -35,9 +35,16 @@ export function FcirclePage() {
         link.href = 'https://fastly.jsdelivr.net/gh/willow-god/Friend-Circle-Lite/main/fclite.min.css';
         document.head.appendChild(link);
 
-        // 添加深色模式样式覆盖
+        // 添加样式覆盖
         const style = document.createElement('style');
         style.textContent = `
+            /* 白天模式字体为黑色 */
+            #friend-circle-lite-root,
+            #friend-circle-lite-root * {
+                color: black !important;
+            }
+            
+            /* 深色模式字体为白色 */
             @media (prefers-color-scheme: dark) {
                 #friend-circle-lite-root,
                 #friend-circle-lite-root * {
