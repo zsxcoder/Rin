@@ -38,17 +38,43 @@ export function FcirclePage() {
         // 添加样式覆盖
         const style = document.createElement('style');
         style.textContent = `
-            /* 白天模式字体为黑色 */
-            #friend-circle-lite-root,
-            #friend-circle-lite-root * {
-                color: black !important;
+            /* 基础样式 - 白天模式字体为黑色 */
+            #friend-circle-lite-root {
+                color-scheme: light;
+            }
+            
+            #friend-circle-lite-root *,
+            #friend-circle-lite-root p,
+            #friend-circle-lite-root h1,
+            #friend-circle-lite-root h2,
+            #friend-circle-lite-root h3,
+            #friend-circle-lite-root h4,
+            #friend-circle-lite-root h5,
+            #friend-circle-lite-root h6,
+            #friend-circle-lite-root span,
+            #friend-circle-lite-root a {
+                color: #000000 !important;
+                color-scheme: light !important;
             }
             
             /* 深色模式字体为白色 */
             @media (prefers-color-scheme: dark) {
-                #friend-circle-lite-root,
-                #friend-circle-lite-root * {
-                    color: white !important;
+                #friend-circle-lite-root {
+                    color-scheme: dark;
+                }
+                
+                #friend-circle-lite-root *,
+                #friend-circle-lite-root p,
+                #friend-circle-lite-root h1,
+                #friend-circle-lite-root h2,
+                #friend-circle-lite-root h3,
+                #friend-circle-lite-root h4,
+                #friend-circle-lite-root h5,
+                #friend-circle-lite-root h6,
+                #friend-circle-lite-root span,
+                #friend-circle-lite-root a {
+                    color: #ffffff !important;
+                    color-scheme: dark !important;
                 }
                 #friend-circle-lite-root .fcl-card {
                     background-color: #1f2937 !important;
