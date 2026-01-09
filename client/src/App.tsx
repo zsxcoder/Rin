@@ -11,7 +11,8 @@ import { CallbackPage } from './page/callback'
 import { FeedPage, TOCHeader } from './page/feed'
 import { FeedsPage } from './page/feeds'
 import { FriendsPage } from './page/friends'
-import { FcirclePage } from './page/fcircle.tsx'
+import { FCirclePage } from './page/fcircle'
+
 import { HashtagPage } from './page/hashtag.tsx'
 import { HashtagsPage } from './page/hashtags.tsx'
 import { Settings } from "./page/settings.tsx"
@@ -102,7 +103,7 @@ function App() {
             </RouteMe>
 
             <RouteMe path="/fcircle">
-              <FcirclePage />
+              <FCirclePage />
             </RouteMe>
 
             <RouteMe path="/hashtags">

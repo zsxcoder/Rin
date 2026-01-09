@@ -1,8 +1,9 @@
-import { useEffect } from 'react';
+import { useEffect, useRef } from "react";
 import { Helmet } from 'react-helmet';
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from "react-i18next";
+import { useColorMode } from "../utils/darkModeUtils";
+import { siteName } from "../utils/constants";
 
-// 添加 UserConfig 类型定义
 declare global {
     interface Window {
         UserConfig?: {
@@ -10,121 +11,88 @@ declare global {
             page_turning_number: number;
             error_img: string;
         };
+        initialize_fc_lite?: () => void;
     }
 }
 
-export function FcirclePage() {
+export function FCirclePage() {
     const { t } = useTranslation();
+    const colorMode = useColorMode();
+    const scriptLoaded = useRef(false);
 
     useEffect(() => {
-        // 确保 UserConfig 只被定义一次
-        if (typeof window.UserConfig === 'undefined') {
+        // 确保只加载一次脚本
+        if (!scriptLoaded.current) {
+            // 配置 UserConfig
             window.UserConfig = {
-                // 填写你的fc Lite地址
                 private_api_url: 'https://fc.mcyzsx.top/',
-                // 点击加载更多时，一次最多加载几篇文章，默认20
                 page_turning_number: 20,
-                // 头像加载失败时，默认头像地址
                 error_img: 'https://i.p-i.vip/30/20240815-66bced9226a36.webp',
             };
-        }
 
-        // 动态加载 CSS
-        const link = document.createElement('link');
-        link.rel = 'stylesheet';
-        link.href = 'https://cdn.jsdelivr.net/gh/willow-god/Friend-Circle-Lite/main/fclite.min.css';
-        document.head.appendChild(link);
+            // 加载 CSS
+            const cssLink = document.createElement('link');
+            cssLink.rel = 'stylesheet';
+            cssLink.href = 'https://fastly.jsdelivr.net/gh/willow-god/Friend-Circle-Lite/main/fclite.min.css';
+            document.head.appendChild(cssLink);
 
-        // 检测系统颜色方案并设置主题
-        const setTheme = () => {
-            const isDarkMode = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
-            const rootElement = document.getElementById('friend-circle-lite-root');
-            
-            if (rootElement) {
-                if (isDarkMode) {
-                    rootElement.setAttribute('data-theme', 'dark');
-                } else {
-                    rootElement.setAttribute('data-theme', 'light');
+            // 加载 JS
+            const script = document.createElement('script');
+            script.src = 'https://fastly.jsdelivr.net/gh/willow-god/Friend-Circle-Lite/main/fclite.min.js';
+            script.onload = () => {
+                // 初始化 Friend Circle Lite
+                if (window.initialize_fc_lite) {
+                    window.initialize_fc_lite();
                 }
-            }
-        };
+            };
+            document.body.appendChild(script);
 
-        // 初始设置主题
-        setTheme();
-
-        // 监听系统颜色方案变化
-        const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
-        mediaQuery.addEventListener('change', setTheme);
-
-        // 添加样式覆盖
-        const style = document.createElement('style');
-        style.textContent = `
-            /* 确保主题样式正确应用 */
-            [data-theme=light] {
-                --text-color: #000000 !important;
-            }
-            
-            [data-theme=dark] {
-                --text-color: #ffffff !important;
-            }
-            
-            /* 直接覆盖元素颜色 */
-            [data-theme=light] #friend-circle-lite-root *,
-            [data-theme=light] #friend-circle-lite-root p,
-            [data-theme=light] #friend-circle-lite-root h1,
-            [data-theme=light] #friend-circle-lite-root h2,
-            [data-theme=light] #friend-circle-lite-root h3,
-            [data-theme=light] #friend-circle-lite-root h4,
-            [data-theme=light] #friend-circle-lite-root h5,
-            [data-theme=light] #friend-circle-lite-root h6,
-            [data-theme=light] #friend-circle-lite-root span,
-            [data-theme=light] #friend-circle-lite-root a {
-                color: #000000 !important;
-            }
-            
-            [data-theme=dark] #friend-circle-lite-root *,
-            [data-theme=dark] #friend-circle-lite-root p,
-            [data-theme=dark] #friend-circle-lite-root h1,
-            [data-theme=dark] #friend-circle-lite-root h2,
-            [data-theme=dark] #friend-circle-lite-root h3,
-            [data-theme=dark] #friend-circle-lite-root h4,
-            [data-theme=dark] #friend-circle-lite-root h5,
-            [data-theme=dark] #friend-circle-lite-root h6,
-            [data-theme=dark] #friend-circle-lite-root span,
-            [data-theme=dark] #friend-circle-lite-root a {
-                color: #ffffff !important;
-            }
-        `;
-        document.head.appendChild(style);
-
-        // 动态加载 JavaScript
-        const script = document.createElement('script');
-        script.src = 'https://fastly.jsdelivr.net/gh/willow-god/Friend-Circle-Lite/main/fclite.min.js';
-        document.body.appendChild(script);
-
-        // 清理函数
-        return () => {
-            document.head.removeChild(link);
-            document.head.removeChild(style);
-            document.body.removeChild(script);
-            mediaQuery.removeEventListener('change', setTheme);
-        };
+            scriptLoaded.current = true;
+        }
     }, []);
+
+    // 监听颜色模式变化，更新 Friend Circle Lite 的主题
+    useEffect(() => {
+        const updateFCTheme = () => {
+            const rootElement = document.getElementById('friend-circle-lite-root');
+            if (rootElement) {
+                rootElement.setAttribute('data-theme', colorMode);
+            }
+        };
+
+        // 初始设置
+        updateFCTheme();
+
+        // 监听颜色模式变化
+        const handleColorChange = () => {
+            updateFCTheme();
+        };
+
+        window.addEventListener('colorSchemeChange', handleColorChange);
+
+        return () => {
+            window.removeEventListener('colorSchemeChange', handleColorChange);
+        };
+    }, [colorMode]);
 
     return (
         <>
             <Helmet>
-                <title>{`${t('fcircle.title')} - ${process.env.NAME}`}</title>
-                <meta property="og:site_name" content={process.env.NAME} />
-                <meta property="og:title" content={t('fcircle.title')} />
+                <title>{`${t('fcircle.title', { defaultValue: '友链朋友圈' })} - ${process.env.NAME}`}</title>
+                <meta property="og:site_name" content={siteName} />
+                <meta property="og:title" content={t('fcircle.title', { defaultValue: '友链朋友圈' })} />
                 <meta property="og:image" content={process.env.AVATAR} />
+                <meta property="og:type" content="article" />
+                <meta property="og:url" content={document.URL} />
             </Helmet>
-            <div className="w-full flex flex-row justify-center ani-show">
-                <div className="flex flex-col w-full max-w-4xl rounded-2xl bg-w m-2 p-6 items-center justify-center">
-                    <h1 className="text-xl font-bold t-primary mb-4">{t('fcircle.title')}</h1>
-                    <div id="friend-circle-lite-root"></div>
+            <main className="w-full flex flex-col justify-center items-center mb-8 t-primary ani-show">
+                <div className="w-full max-w-4xl p-4">
+                    <h1 className="text-3xl font-bold text-center mb-8 text-slate-900 dark:text-white">
+                        {t('fcircle.title', { defaultValue: '友链朋友圈' })}
+                    </h1>
+                    <div id="friend-circle-lite-root" data-theme={colorMode}></div>
                 </div>
-            </div>
+            </main>
         </>
     );
 }
