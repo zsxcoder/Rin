@@ -29,10 +29,10 @@ export function FcirclePage() {
             };
         }
 
-        // 动态加载本地 CSS
+        // 动态加载 CSS
         const link = document.createElement('link');
         link.rel = 'stylesheet';
-        link.href = '/fclite.min.css';
+        link.href = 'https://cdn.jsdelivr.net/gh/willow-god/Friend-Circle-Lite/main/fclite.min.css';
         document.head.appendChild(link);
 
         // 检测系统颜色方案并设置主题
