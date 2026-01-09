@@ -29,89 +29,117 @@ export function FcirclePage() {
             };
         }
 
-        // 动态加载 CSS
+        // 动态加载本地 CSS
         const link = document.createElement('link');
         link.rel = 'stylesheet';
-        link.href = 'https://fastly.jsdelivr.net/gh/willow-god/Friend-Circle-Lite/main/fclite.min.css';
+        link.href = '/fclite.min.css';
         document.head.appendChild(link);
+
+        // 检测系统颜色方案并设置主题
+        const setTheme = () => {
+            const isDarkMode = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+            const rootElement = document.getElementById('friend-circle-lite-root');
+            
+            if (rootElement) {
+                if (isDarkMode) {
+                    rootElement.setAttribute('data-theme', 'dark');
+                } else {
+                    rootElement.setAttribute('data-theme', 'light');
+                }
+            }
+        };
+
+        // 初始设置主题
+        setTheme();
+
+        // 监听系统颜色方案变化
+        const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+        mediaQuery.addEventListener('change', setTheme);
 
         // 添加样式覆盖
         const style = document.createElement('style');
         style.textContent = `
-            /* 基础样式 - 白天模式字体为黑色 */
-            #friend-circle-lite-root {
-                color-scheme: light;
+            /* 确保主题样式正确应用 */
+            [data-theme=light] {
+                --text-color: #000000 !important;
             }
             
-            #friend-circle-lite-root *,
-            #friend-circle-lite-root p,
-            #friend-circle-lite-root h1,
-            #friend-circle-lite-root h2,
-            #friend-circle-lite-root h3,
-            #friend-circle-lite-root h4,
-            #friend-circle-lite-root h5,
-            #friend-circle-lite-root h6,
-            #friend-circle-lite-root span,
-            #friend-circle-lite-root a {
+            [data-theme=dark] {
+                --text-color: #ffffff !important;
+            }
+            
+            /* 直接覆盖元素颜色 */
+            [data-theme=light] #friend-circle-lite-root *,
+            [data-theme=light] #friend-circle-lite-root p,
+            [data-theme=light] #friend-circle-lite-root h1,
+            [data-theme=light] #friend-circle-lite-root h2,
+            [data-theme=light] #friend-circle-lite-root h3,
+            [data-theme=light] #friend-circle-lite-root h4,
+            [data-theme=light] #friend-circle-lite-root h5,
+            [data-theme=light] #friend-circle-lite-root h6,
+            [data-theme=light] #friend-circle-lite-root span,
+            [data-theme=light] #friend-circle-lite-root a {
                 color: #000000 !important;
-                color-scheme: light !important;
             }
             
-            /* 深色模式字体为白色 */
-            @media (prefers-color-scheme: dark) {
-                #friend-circle-lite-root {
-                    color-scheme: dark;
-                }
-                
-                #friend-circle-lite-root *,
-                #friend-circle-lite-root p,
-                #friend-circle-lite-root h1,
-                #friend-circle-lite-root h2,
-                #friend-circle-lite-root h3,
-                #friend-circle-lite-root h4,
-                #friend-circle-lite-root h5,
-                #friend-circle-lite-root h6,
-                #friend-circle-lite-root span,
-                #friend-circle-lite-root a {
-                    color: #ffffff !important;
-                    color-scheme: dark !important;
-                }
-                #friend-circle-lite-root .fcl-card {
-                    background-color: #1f2937 !important;
-                    border-color: #374151 !important;
-                }
-                #friend-circle-lite-root .fcl-card-header {
-                    border-bottom-color: #374151 !important;
-                }
-                #friend-circle-lite-root .fcl-card-footer {
-                    border-top-color: #374151 !important;
-                }
-                #friend-circle-lite-root .fcl-comment {
-                    background-color: #374151 !important;
-                    border-color: #4b5563 !important;
-                }
-                #friend-circle-lite-root .fcl-btn {
-                    background-color: #374151 !important;
-                    border-color: #4b5563 !important;
-                    color: white !important;
-                }
-                #friend-circle-lite-root .fcl-btn:hover {
-                    background-color: #4b5563 !important;
-                }
-                #friend-circle-lite-root .fcl-input {
-                    background-color: #374151 !important;
-                    border-color: #4b5563 !important;
-                    color: white !important;
-                }
-                #friend-circle-lite-root .fcl-input::placeholder {
-                    color: #9ca3af !important;
-                }
-                #friend-circle-lite-root .fcl-loading {
-                    background-color: rgba(31, 41, 55, 0.8) !important;
-                }
-                #friend-circle-lite-root .fcl-loading::after {
-                    border-color: white transparent white transparent !important;
-                }
+            [data-theme=dark] #friend-circle-lite-root *,
+            [data-theme=dark] #friend-circle-lite-root p,
+            [data-theme=dark] #friend-circle-lite-root h1,
+            [data-theme=dark] #friend-circle-lite-root h2,
+            [data-theme=dark] #friend-circle-lite-root h3,
+            [data-theme=dark] #friend-circle-lite-root h4,
+            [data-theme=dark] #friend-circle-lite-root h5,
+            [data-theme=dark] #friend-circle-lite-root h6,
+            [data-theme=dark] #friend-circle-lite-root span,
+            [data-theme=dark] #friend-circle-lite-root a {
+                color: #ffffff !important;
+            }
+            
+            /* 深色模式背景和边框样式 */
+            [data-theme=dark] #friend-circle-lite-root .fcl-card {
+                background-color: #1f2937 !important;
+                border-color: #374151 !important;
+            }
+            
+            [data-theme=dark] #friend-circle-lite-root .fcl-card-header {
+                border-bottom-color: #374151 !important;
+            }
+            
+            [data-theme=dark] #friend-circle-lite-root .fcl-card-footer {
+                border-top-color: #374151 !important;
+            }
+            
+            [data-theme=dark] #friend-circle-lite-root .fcl-comment {
+                background-color: #374151 !important;
+                border-color: #4b5563 !important;
+            }
+            
+            [data-theme=dark] #friend-circle-lite-root .fcl-btn {
+                background-color: #374151 !important;
+                border-color: #4b5563 !important;
+                color: white !important;
+            }
+            
+            [data-theme=dark] #friend-circle-lite-root .fcl-btn:hover {
+                background-color: #4b5563 !important;
+            }
+            
+            [data-theme=dark] #friend-circle-lite-root .fcl-input {
+                background-color: #374151 !important;
+                border-color: #4b5563 !important;
+                color: white !important;
+            }
+            
+            [data-theme=dark] #friend-circle-lite-root .fcl-input::placeholder {
+                color: #9ca3af !important;
+            }
+            
+            [data-theme=dark] #friend-circle-lite-root .fcl-loading {
+                background-color: rgba(31, 41, 55, 0.8) !important;
+            }
+            
+            [data-theme=dark] #friend-circle-lite-root .fcl-loading::after {
+                border-color: white transparent white transparent !important;
             }
         `;
         document.head.appendChild(style);
@@ -126,6 +154,7 @@ export function FcirclePage() {
             document.head.removeChild(link);
             document.head.removeChild(style);
             document.body.removeChild(script);
+            mediaQuery.removeEventListener('change', setTheme);
         };
     }, []);
 
