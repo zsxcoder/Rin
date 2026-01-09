@@ -6,12 +6,13 @@ import Modal from 'react-modal';
 import Select from 'react-select';
 import { ShowAlertType, useAlert, useConfirm } from "../components/dialog";
 import { Input } from "../components/input";
+import SiteInfo from "../components/SiteInfo";
 import { Waiting } from "../components/loading";
 import { client } from "../main";
 import { ClientConfigContext } from "../state/config";
 import { ProfileContext } from "../state/profile";
 import { headersWithAuth } from "../utils/auth";
-import { siteName } from "../utils/constants";
+import { FRIEND_LINK_CONTACT, siteName } from "../utils/constants";
 
 
 type FriendItem = {
@@ -103,6 +104,38 @@ export function FriendsPage() {
                 <FriendList title={t('friends.review.waiting')} show={waitList.length > 0} friends={waitList} />
                 <FriendList title={t('friends.review.rejected')} show={refusedList.length > 0} friends={refusedList} />
                 <FriendList title={t('friends.my_apply')} show={profile?.permission !== true && apply !== undefined} friends={apply ? [apply] : []} />
+                
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12 w-full max-w-4xl">
+                    <div className="rounded-2xl bg-slate-50 dark:bg-white/5 border border-slate-100 dark:border-white/5 p-6">
+                        <div className="flex items-center gap-2 mb-4">
+                            <svg className="w-5 h-5 text-docs-accent dark:text-dark-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+                            </svg>
+                            <h3 className="text-lg font-bold text-slate-900 dark:text-white">申请友链</h3>
+                        </div>
+                        <p className="text-sm text-slate-600 dark:text-slate-400 mb-4">
+                            欢迎技术与生活类博客交换友链
+                        </p>
+                        <p className="text-sm text-slate-600 dark:text-slate-400 mb-4">
+                            评论区留言或请发送邮件至 <a href={`mailto:${FRIEND_LINK_CONTACT.email}`} className="text-docs-accent dark:text-dark-accent hover:underline">{FRIEND_LINK_CONTACT.email}</a>
+                        </p>
+                        <div className="rounded-lg border-2 border-dashed border-docs-accent/30 dark:border-dark-accent/30 bg-docs-accent/5 dark:bg-dark-accent/10 p-4 text-center">
+                            <p className="text-sm text-docs-accent dark:text-dark-accent font-medium mb-1">
+                                博客名称、描述、地址、头像等信息
+                            </p>
+                            <p className="text-xs text-slate-500 dark:text-slate-400">
+                                任意格式均可,包含基本信息即可
+                            </p>
+                        </div>
+                    </div>
+                    <SiteInfo
+                        name={process.env.NAME || '网站名称'}
+                        url={process.env.URL || window.location.origin}
+                        description={process.env.DESCRIPTION || '网站描述'}
+                        avatar={process.env.AVATAR || ''}
+                    />
+                </div>
+                
                 {profile && (profile.permission || config.get("friend_apply_enable")) &&
                     <div className="wauto t-primary flex text-start text-2xl font-bold mt-8">
                         <div className="md:basis-1/2 bg-w rounded-xl p-4">
