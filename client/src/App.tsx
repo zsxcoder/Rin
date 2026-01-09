@@ -11,7 +11,7 @@ import { CallbackPage } from './page/callback'
 import { FeedPage, TOCHeader } from './page/feed'
 import { FeedsPage } from './page/feeds'
 import { FriendsPage } from './page/friends'
-import { FcirclePage } from './page/fcircle'
+import { FcirclePage } from './page/fcircle.tsx'
 import { HashtagPage } from './page/hashtag.tsx'
 import { HashtagsPage } from './page/hashtags.tsx'
 import { Settings } from "./page/settings.tsx"
