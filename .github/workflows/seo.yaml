@@ -45,6 +45,6 @@ jobs:
           S3_FORCE_PATH_STYLE: ${{ vars.S3_FORCE_PATH_STYLE }}
         run: |
           cd Rin/
-          bun install --frozen-lockfile
+          bun install
           npx puppeteer browsers install chrome
           bun scripts/render.ts
